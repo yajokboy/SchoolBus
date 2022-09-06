@@ -1,0 +1,46 @@
+service: school-bus
+
+package:
+  individually: true
+
+plugins:
+  - serverless-esbuild
+  - serverless-offline
+
+custom:
+  esbuild:
+    bundle: true
+    minify: true
+    external: ['pg-native']
+    watch:
+      pattern: ['src/**/*.ts']
+      ignore: ['.serverless/**/*', '.build']
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: ap-southeast-1
+  lambdaHashingVersion: 20201221
+  apiGateway:
+    binaryMediaTypes:
+      - 'multipart/form-data'
+      - 'image/jpeg'
+      - 'image/png'
+      - 'text/csv'
+      - 'application/vnd.ms-excel'
+
+useDotenv: true
+
+functions:
+  main:
+    architecture: arm64
+    handler: src/caller/index.handler
+    events:
+      - http:
+          method: GET
+          path: /test
+          cors: true
+      - http:
+          method: GET
+          path: /sendSMS
+          cors: true

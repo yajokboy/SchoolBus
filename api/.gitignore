@@ -1,0 +1,4 @@
+.DS_Store
+.esbuild/
+.serverless/
+node_modules/
