@@ -14,8 +14,8 @@ export async function sendSms(phoneNumber: string, message: string) {
     }
     const headers = {
       auth: {
-        username: 'NiOK2bfc1Nb6FoZJ3R8ddwZSRUhkR7',
-        password: '_wirEoOCct-EhYSBapA93qhHcw6WIE',
+        username: '2AXMZxD2dG8sehgliwUkfiqEk2kd2_',
+        password: '3mn5bqSHGfB_9rA-ucmG7iZJPmMn0-',
       },
     }
     await api.post('/', data, headers)
