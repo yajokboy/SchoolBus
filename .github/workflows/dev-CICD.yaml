@@ -3,17 +3,17 @@ name: SchoolBus - Development
 on:
   workflow_dispatch:
   push:
-    #paths:
-    #  - 'api/**'
-    #  - '.github/workflows/dev-CICD.yaml'
+    paths:
+      - 'api/**'
+      - '.github/workflows/dev-CICD.yaml'
     branches:
       - main
 jobs:
   deploy:
     name: deploy
-    #defaults:
-    #  run:
-    #    working-directory: ./api
+    defaults:
+      run:
+        working-directory: ./api
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
