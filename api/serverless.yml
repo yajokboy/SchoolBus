@@ -44,3 +44,12 @@ functions:
           method: GET
           path: /sendSMS
           cors: true
+      - http:
+          method: GET
+          path: /getHornAlarm
+          cors: true
+      - http:
+          method: GET
+          path: /getMovementAlarm
+          cors: true
+

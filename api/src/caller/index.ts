@@ -6,7 +6,7 @@ import Router from 'koa-tree-router'
 import serverless from 'serverless-http'
 import HttpStatusCode from '../enums/httpStatusCode'
 import sms from '../service/sms'
-//import { authorize } from '../../../middleware/auth'
+//import { authorize } from '../middleware/auth'
 //import { db } from '../../../middleware/db'
 
 const app = new Koa()
@@ -18,6 +18,15 @@ router.get('/test', async function (ctx: Context) {
   ctx.status = HttpStatusCode.OK
 })
 
+router.get('/getHornAlarm', async function (ctx: Context) {
+  ctx.body = 1
+  ctx.status = HttpStatusCode.OK
+})
+
+router.get('/getMovementAlarm', async function (ctx: Context) {
+  ctx.body = 0
+  ctx.status = HttpStatusCode.OK
+})
 
 router.get('/sendSMS', async function (ctx: Context) {
     try {
