@@ -32,7 +32,7 @@ router.get('/setHornAlarm', async function (ctx: Context) {
   const { value } = ctx.request.query
   if ( value !=  0 ||  value !=  1) {
     ctx.status = HttpStatusCode.BAD_REQUEST
-    return 
+    return }
   ctx.status = HttpStatusCode.OK
 })
 
@@ -40,7 +40,7 @@ router.get('/setMovementAlarm', async function (ctx: Context) {
   const { value } = ctx.request.query
   if ( value !=  0 ||  value !=  1) {
     ctx.status = HttpStatusCode.BAD_REQUEST
-    return 
+    return }
   ctx.status = HttpStatusCode.OK
 })
 
