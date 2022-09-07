@@ -30,18 +30,19 @@ router.get('/getMovementAlarm', async function (ctx: Context) {
 
 router.get('/setHornAlarm', async function (ctx: Context) {
   const { value } = ctx.request.query
-  if ( value !=  0 ||  value !=  1) {
-    ctx.status = HttpStatusCode.BAD_REQUEST
+  if ( value ==  0 ||  value ==  1) {
+    ctx.status = HttpStatusCode.OK
     return }
-  ctx.status = HttpStatusCode.OK
+    else ctx.status = HttpStatusCode.BAD_REQUEST
+  
 })
 
 router.get('/setMovementAlarm', async function (ctx: Context) {
   const { value } = ctx.request.query
-  if ( value !=  0 ||  value !=  1) {
-    ctx.status = HttpStatusCode.BAD_REQUEST
+  if ( value ==  0 ||  value ==  1) {
+    ctx.status = HttpStatusCode.OK
     return }
-  ctx.status = HttpStatusCode.OK
+    else ctx.status = HttpStatusCode.BAD_REQUEST
 })
 
 router.get('/sendSMS', async function (ctx: Context) {
