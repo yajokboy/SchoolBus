@@ -4,48 +4,67 @@ import Koa from 'koa'
 import bodyParser from 'koa-bodyparser'
 import Router from 'koa-tree-router'
 import serverless from 'serverless-http'
+import { db } from 'src/middleware/db'
+import { CustomContext } from 'src/types'
 import HttpStatusCode from '../enums/httpStatusCode'
 import sms from '../service/sms'
 //import { authorize } from '../middleware/auth'
-//import { db } from '../../../middleware/db'
+
 
 const app = new Koa()
 const router = new Router()
 
-router.get('/test', async function (ctx: Context) {
+router.get('/test', async function (ctx: CustomContext) {
   console.log("Hello test")
   ctx.body = "Hello School Bus"
   ctx.status = HttpStatusCode.OK
 })
 
-router.get('/getHornAlarm', async function (ctx: Context) {
-  ctx.body = 1
-  ctx.status = HttpStatusCode.OK
-})
-
-router.get('/getMovementAlarm', async function (ctx: Context) {
-  ctx.body = 0
-  ctx.status = HttpStatusCode.OK
-})
-
-router.get('/setHornAlarm', async function (ctx: Context) {
-  const { value } = ctx.request.query
-  if ( value ==  0 ||  value ==  1) {
-    ctx.status = HttpStatusCode.OK
-    return }
-    else ctx.status = HttpStatusCode.BAD_REQUEST
+router.get('/getHornAlarm', async function (ctx: CustomContext) {
+  try {
+    ctx.body = await ctx.db.sensorInfo.getSensorValue('Horn')
+    ctx.status =  HttpStatusCode.OK
+  } catch (e) {
+    ctx.body = { error: e.message }
+    ctx.status = HttpStatusCode.BAD_REQUEST
+  }
   
 })
 
-router.get('/setMovementAlarm', async function (ctx: Context) {
+router.get('/getMovementAlarm', async function (ctx: CustomContext)  {
+  try {
+    ctx.body = await ctx.db.sensorInfo.getSensorValue('Movement')
+    ctx.status =  HttpStatusCode.OK
+  } catch (e) {
+    ctx.body = { error: e.message }
+    ctx.status = HttpStatusCode.BAD_REQUEST
+  }
+  
+})
+
+router.get('/setHornAlarm', async function (ctx: CustomContext) {
   const { value } = ctx.request.query
-  if ( value ==  0 ||  value ==  1) {
+  if ( value === '0' ||  value === '1') 
+  {
+    ctx.body = await ctx.db.sensorInfo.setSensorValue('Horn',Number(value)) 
+    ctx.status = HttpStatusCode.OK
+    return
+   }
+    else ctx.status = HttpStatusCode.BAD_REQUEST
+  
+  
+})
+
+router.get('/setMovementAlarm', async function (ctx: CustomContext) {
+  const { value } = ctx.request.query
+  if  ( value === '0' ||  value === '1') {
+    ctx.body = await ctx.db.sensorInfo.setSensorValue('Movement',Number(value)) 
     ctx.status = HttpStatusCode.OK
     return }
     else ctx.status = HttpStatusCode.BAD_REQUEST
 })
 
-router.get('/sendSMS', async function (ctx: Context) {
+router.get('/sendSMS', async function (ctx: CustomContext) {
     try {
       const { number, message } = ctx.request.query
       if (typeof number !== 'string' || typeof message !== 'string') {
@@ -64,7 +83,7 @@ router.get('/sendSMS', async function (ctx: Context) {
 app.use(cors())
 app.use(bodyParser())
 //app.use(authorize)
-//app.use(db)
+app.use(db)
 app.use(router.routes())
 
 export const handler = async (event: APIGatewayEvent, context: Context) => {

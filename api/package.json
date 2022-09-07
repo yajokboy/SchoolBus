@@ -16,7 +16,9 @@
         "koa-tree-router": "^0.10.1",
         "serverless-http": "^3.0.2",
         "serverless-offline": "^10.0.0",
-        "typescript": "^4.8.2"
+        "typescript": "^4.8.2",
+        "pg": "^8.8.0"
+
     },
     "dependencies": {
         "esbuild": "^0.15.7",
