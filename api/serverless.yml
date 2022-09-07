@@ -52,4 +52,12 @@ functions:
           method: GET
           path: /getMovementAlarm
           cors: true
+      - http:
+          method: GET
+          path: /setHornAlarm
+          cors: true
+      - http:
+          method: GET
+          path: /setMovementAlarm
+          cors: true
 

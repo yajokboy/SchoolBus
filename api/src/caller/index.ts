@@ -28,6 +28,22 @@ router.get('/getMovementAlarm', async function (ctx: Context) {
   ctx.status = HttpStatusCode.OK
 })
 
+router.get('/setHornAlarm', async function (ctx: Context) {
+  const { value } = ctx.request.query
+  if ( value !=  0 ||  value !=  1) {
+    ctx.status = HttpStatusCode.BAD_REQUEST
+    return 
+  ctx.status = HttpStatusCode.OK
+})
+
+router.get('/setMovementAlarm', async function (ctx: Context) {
+  const { value } = ctx.request.query
+  if ( value !=  0 ||  value !=  1) {
+    ctx.status = HttpStatusCode.BAD_REQUEST
+    return 
+  ctx.status = HttpStatusCode.OK
+})
+
 router.get('/sendSMS', async function (ctx: Context) {
     try {
       const { number, message } = ctx.request.query
