@@ -14,7 +14,7 @@ export class SensorInfo {
         }
 
       async getCOSensorValue():Promise<number> {
-        const { rows: hash } = await this.client.query( 'SELECT value FROM coinfo order by Date desc')
+        const { rows: hash } = await this.client.query( 'SELECT value FROM coinfo order by date desc')
             return  hash[0].value
         }    
     
