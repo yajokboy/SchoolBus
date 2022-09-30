@@ -24,8 +24,7 @@ export class SensorInfo {
           )        
       }
       async setCOSensorValue(value:number){
-        const insertValue = await this.client.query(
-            'INSERT INTO public.coinfo (value) VALUES $1);',[value]
+        const insertValue = await this.client.query('INSERT INTO coinfo (value) VALUES ($1))',[value]
           )        
       }
 
