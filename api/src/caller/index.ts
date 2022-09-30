@@ -142,7 +142,7 @@ router.get('/getCO', async function (ctx: CustomContext)  {
 router.get('/setCO', async function (ctx: CustomContext) {
   const { value } = ctx.request.query
   try {
-    ctx.body = await ctx.db.sensorInfo.setSensorValue('co',Number(value)) 
+    ctx.body = await ctx.db.sensorInfo.setCOSensorValue(Number(value)) 
     ctx.status = HttpStatusCode.OK
     return 
   } catch (e) {

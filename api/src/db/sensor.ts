@@ -23,6 +23,11 @@ export class SensorInfo {
             'UPDATE sensorinfo SET value = $2 WHERE sensorname = $1',[sensorName, value]
           )        
       }
+      async setCOSensorValue(value:number){
+        const insertValue = await this.client.query(
+            'INSERT INTO public.coinfo (value) VALUES $1);',[value]
+          )        
+      }
 
     
 }
