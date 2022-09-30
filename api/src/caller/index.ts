@@ -119,7 +119,7 @@ router.get('/setMovementAlarm3', async function (ctx: CustomContext) {
 
 router.get('/getlastCO', async function (ctx: CustomContext)  {
   try {
-    ctx.body = await ctx.db.sensorInfo.getSensorValue('co')
+    ctx.body = await ctx.db.sensorInfo.getCOSensorValue()
     ctx.status =  HttpStatusCode.OK
   } catch (e) {
     ctx.body = { error: e.message }
