@@ -19,6 +19,21 @@ router.get('/test', async function (ctx: CustomContext) {
   ctx.body = "Hello School Bus"
   ctx.status = HttpStatusCode.OK
 })
+router.get('/sendSMS', async function (ctx: CustomContext) {
+  try {
+    const { number, message } = ctx.request.query
+    if (typeof number !== 'string' || typeof message !== 'string') {
+      ctx.status = HttpStatusCode.BAD_REQUEST
+      return
+    }
+    await sms.send(number,message)
+    ctx.status = HttpStatusCode.OK
+
+  } catch (e) {
+    ctx.body = { error: e.message }
+    return (ctx.status = HttpStatusCode.BAD_REQUEST)
+  }
+})
 
 router.get('/getHornAlarm', async function (ctx: CustomContext) {
   try {
@@ -31,16 +46,6 @@ router.get('/getHornAlarm', async function (ctx: CustomContext) {
   
 })
 
-router.get('/getMovementAlarm', async function (ctx: CustomContext)  {
-  try {
-    ctx.body = await ctx.db.sensorInfo.getSensorValue('Movement')
-    ctx.status =  HttpStatusCode.OK
-  } catch (e) {
-    ctx.body = { error: e.message }
-    ctx.status = HttpStatusCode.BAD_REQUEST
-  }
-  
-})
 
 router.get('/setHornAlarm', async function (ctx: CustomContext) {
   const { value } = ctx.request.query
@@ -55,30 +60,93 @@ router.get('/setHornAlarm', async function (ctx: CustomContext) {
   
 })
 
-router.get('/setMovementAlarm', async function (ctx: CustomContext) {
+router.get('/getMovementAlarm1', async function (ctx: CustomContext)  {
+  try {
+    ctx.body = await ctx.db.sensorInfo.getSensorValue('Movement1')
+    ctx.status =  HttpStatusCode.OK
+  } catch (e) {
+    ctx.body = { error: e.message }
+    ctx.status = HttpStatusCode.BAD_REQUEST
+  }
+  
+})
+router.get('/setMovementAlarm1', async function (ctx: CustomContext) {
   const { value } = ctx.request.query
   if  ( value === '0' ||  value === '1') {
-    ctx.body = await ctx.db.sensorInfo.setSensorValue('Movement',Number(value)) 
+    ctx.body = await ctx.db.sensorInfo.setSensorValue('Movement1',Number(value)) 
     ctx.status = HttpStatusCode.OK
     return }
     else ctx.status = HttpStatusCode.BAD_REQUEST
 })
 
-router.get('/sendSMS', async function (ctx: CustomContext) {
-    try {
-      const { number, message } = ctx.request.query
-      if (typeof number !== 'string' || typeof message !== 'string') {
-        ctx.status = HttpStatusCode.BAD_REQUEST
-        return
-      }
-      await sms.send(number,message)
-      ctx.status = HttpStatusCode.OK
+router.get('/getMovementAlarm2', async function (ctx: CustomContext)  {
+  try {
+    ctx.body = await ctx.db.sensorInfo.getSensorValue('Movement2')
+    ctx.status =  HttpStatusCode.OK
+  } catch (e) {
+    ctx.body = { error: e.message }
+    ctx.status = HttpStatusCode.BAD_REQUEST
+  }
+  
+})
+router.get('/setMovementAlarm2', async function (ctx: CustomContext) {
+  const { value } = ctx.request.query
+  if  ( value === '0' ||  value === '1') {
+    ctx.body = await ctx.db.sensorInfo.setSensorValue('Movement2',Number(value)) 
+    ctx.status = HttpStatusCode.OK
+    return }
+    else ctx.status = HttpStatusCode.BAD_REQUEST
+})
 
-    } catch (e) {
-      ctx.body = { error: e.message }
-      return (ctx.status = HttpStatusCode.BAD_REQUEST)
-    }
-  })
+router.get('/getMovementAlarm3', async function (ctx: CustomContext)  {
+  try {
+    ctx.body = await ctx.db.sensorInfo.getSensorValue('Movement3')
+    ctx.status =  HttpStatusCode.OK
+  } catch (e) {
+    ctx.body = { error: e.message }
+    ctx.status = HttpStatusCode.BAD_REQUEST
+  }
+  
+})
+router.get('/setMovementAlarm3', async function (ctx: CustomContext) {
+  const { value } = ctx.request.query
+  if  ( value === '0' ||  value === '1') {
+    ctx.body = await ctx.db.sensorInfo.setSensorValue('Movement3',Number(value)) 
+    ctx.status = HttpStatusCode.OK
+    return }
+    else ctx.status = HttpStatusCode.BAD_REQUEST
+})
+
+router.get('/getlastCO', async function (ctx: CustomContext)  {
+  try {
+    ctx.body = await ctx.db.sensorInfo.getSensorValue('co')
+    ctx.status =  HttpStatusCode.OK
+  } catch (e) {
+    ctx.body = { error: e.message }
+    ctx.status = HttpStatusCode.BAD_REQUEST
+  }
+  
+})
+
+router.get('/getCO', async function (ctx: CustomContext)  {
+  try {
+    
+    ctx.status =  HttpStatusCode.OK
+  } catch (e) {
+    ctx.body = { error: e.message }
+    ctx.status = HttpStatusCode.BAD_REQUEST
+  }
+  
+})
+
+router.get('/setCO', async function (ctx: CustomContext) {
+  const { value } = ctx.request.query
+  if  ( value === '0' ||  value === '1') {
+    ctx.body = await ctx.db.sensorInfo.setSensorValue('co',Number(value)) 
+    ctx.status = HttpStatusCode.OK
+    return }
+    else ctx.status = HttpStatusCode.BAD_REQUEST
+})
 
 app.use(cors())
 app.use(bodyParser())

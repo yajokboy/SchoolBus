@@ -50,14 +50,42 @@ functions:
           cors: true
       - http:
           method: GET
-          path: /getMovementAlarm
-          cors: true
-      - http:
-          method: GET
           path: /setHornAlarm
           cors: true
       - http:
           method: GET
-          path: /setMovementAlarm
+          path: /getMovementAlarm1
+          cors: true
+      - http:
+          method: GET
+          path: /setMovementAlarm1
+          cors: true
+            - http:
+          method: GET
+          path: /getMovementAlarm2
+          cors: true
+      - http:
+          method: GET
+          path: /setMovementAlarm2
+          cors: true
+            - http:
+          method: GET
+          path: /getMovementAlarm3
+          cors: true
+      - http:
+          method: GET
+          path: /setMovementAlarm3
+          cors: true
+      - http:
+          method: GET
+          path: /getlastCO
+          cors: true
+      - http:
+          method: GET
+          path: /getCO
+          cors: true
+      - http:
+          method: GET
+          path: /setCO
           cors: true
 
