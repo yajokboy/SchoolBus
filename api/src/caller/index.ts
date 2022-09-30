@@ -131,6 +131,7 @@ router.get('/getlastCO', async function (ctx: CustomContext)  {
 router.get('/getCO', async function (ctx: CustomContext)  {
   try {
     
+    ctx.body = await ctx.db.sensorInfo.getCOSensorValueSeries('24 HOURS')
     ctx.status =  HttpStatusCode.OK
   } catch (e) {
     ctx.body = { error: e.message }
