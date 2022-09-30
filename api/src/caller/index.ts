@@ -141,11 +141,15 @@ router.get('/getCO', async function (ctx: CustomContext)  {
 
 router.get('/setCO', async function (ctx: CustomContext) {
   const { value } = ctx.request.query
-  if  ( value === '0' ||  value === '1') {
+  try {
     ctx.body = await ctx.db.sensorInfo.setSensorValue('co',Number(value)) 
     ctx.status = HttpStatusCode.OK
-    return }
-    else ctx.status = HttpStatusCode.BAD_REQUEST
+    return 
+  } catch (e) {
+    ctx.body = { error: e.message }
+    ctx.status = HttpStatusCode.BAD_REQUEST
+  }
+  
 })
 
 app.use(cors())
