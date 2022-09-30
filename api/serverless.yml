@@ -60,7 +60,7 @@ functions:
           method: GET
           path: /setMovementAlarm1
           cors: true
-            - http:
+      - http:
           method: GET
           path: /getMovementAlarm2
           cors: true
