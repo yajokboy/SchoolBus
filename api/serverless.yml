@@ -88,4 +88,8 @@ functions:
           method: GET
           path: /setCO
           cors: true
+      - http:
+          method: GET
+          path: /setSensorValue
+          cors: true
 

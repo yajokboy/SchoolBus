@@ -153,6 +153,48 @@ router.get('/setCO', async function (ctx: CustomContext) {
   
 })
 
+
+router.get('/setSensorValue', async function (ctx: CustomContext) {
+  const { Movement1, Movement2, Movement3, CO } = ctx.request.query
+  try {
+  if  ( Movement1 === '0' ||  Movement1 === '1') {
+      ctx.body = await ctx.db.sensorInfo.setSensorValue('Movement1',Number(Movement1)) 
+      ctx.status = HttpStatusCode.OK
+      }
+      else {
+        ctx.status = HttpStatusCode.BAD_REQUEST
+        return
+      }
+
+  if  ( Movement2 === '0' ||  Movement2 === '1') {
+      ctx.body = await ctx.db.sensorInfo.setSensorValue('Movement2',Number(Movement2)) 
+      ctx.status = HttpStatusCode.OK
+       }
+      else {
+        ctx.status = HttpStatusCode.BAD_REQUEST
+        return
+      }
+
+  if  ( Movement3 === '0' ||  Movement3 === '1') {
+      ctx.body = await ctx.db.sensorInfo.setSensorValue('Movement3',Number(Movement3)) 
+      ctx.status = HttpStatusCode.OK
+       }
+      else {
+        ctx.status = HttpStatusCode.BAD_REQUEST
+        return
+      } 
+  
+  ctx.body = await ctx.db.sensorInfo.setCOSensorValue(Number(CO)) 
+  ctx.status = HttpStatusCode.OK
+
+  return
+  } catch (e) {
+    ctx.body = { error: e.message }
+    ctx.status = HttpStatusCode.BAD_REQUEST
+  }
+})
+
+
 app.use(cors())
 app.use(bodyParser())
 //app.use(authorize)
