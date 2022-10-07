@@ -31,5 +31,11 @@ export class SensorInfo {
       async setCOSensorValue(value:number){
         const insertValue = await this.client.query(`INSERT INTO coinfo (date,value) VALUES (now()+ interval '7 hour',$1)`,[value])        
       }
+
+      async getCOSensorlast5value():Promise<number> {
+        const { rows: hash } = await this.client.query( `SELECT value FROM coinfo order by date desc LIMIT 5`)
+        console.log(hash.map((item) => item.value))
+        return  hash.map((item) => item.value)
+        } 
 }
 

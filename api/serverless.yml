@@ -92,4 +92,8 @@ functions:
           method: GET
           path: /setSensorValue
           cors: true
+      - http:
+          method: GET
+          path: /getCoAlarm
+          cors: true
 

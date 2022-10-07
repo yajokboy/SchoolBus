@@ -16,7 +16,8 @@ const router = new Router()
 
 router.get('/test', async function (ctx: CustomContext) {
   console.log("Hello test")
-  ctx.body = "Hello School Bus"
+  //ctx.body = "Hello School Bus"
+  ctx.body = await ctx.db.sensorInfo.getCOSensorlast5value()
   ctx.status = HttpStatusCode.OK
 })
 router.get('/sendSMS', async function (ctx: CustomContext) {
@@ -38,6 +39,17 @@ router.get('/sendSMS', async function (ctx: CustomContext) {
 router.get('/getHornAlarm', async function (ctx: CustomContext) {
   try {
     ctx.body = await ctx.db.sensorInfo.getSensorValue('Horn')
+    ctx.status =  HttpStatusCode.OK
+  } catch (e) {
+    ctx.body = { error: e.message }
+    ctx.status = HttpStatusCode.BAD_REQUEST
+  }
+  
+})
+
+router.get('/getCoAlarm', async function (ctx: CustomContext) {
+  try {
+    ctx.body = await ctx.db.sensorInfo.getSensorValue('CO')
     ctx.status =  HttpStatusCode.OK
   } catch (e) {
     ctx.body = { error: e.message }
