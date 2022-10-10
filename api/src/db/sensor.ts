@@ -32,10 +32,29 @@ export class SensorInfo {
         const insertValue = await this.client.query(`INSERT INTO coinfo (date,value) VALUES (now()+ interval '7 hour',$1)`,[value])        
       }
 
-      async getCOSensorlast5value():Promise<number> {
-        const { rows: hash } = await this.client.query( `SELECT value FROM coinfo order by date desc LIMIT 5`)
-        console.log(hash.map((item) => item.value))
-        return  hash.map((item) => item.value)
+      async CoSensorCheck():Promise<number>{
+        const { rows: hash } = await this.client.query( `SELECT value FROM coinfo order by date desc LIMIT 10`)
+        const CoLast10 = hash.map((item) => item.value)
+        let upTrendCount = 0
+        let lastHighValue = 0
+        let CoAlarmFlg = 0
+        CoLast10.reverse()
+        for (let i = 0; i < CoLast10.length; i++) {
+          if (CoLast10[0] > 1200){
+            if (lastHighValue < CoLast10[i]){
+              upTrendCount++;
+              lastHighValue = CoLast10[i] 
+            }
+          }
+        }
+        if(upTrendCount>=7)
+        {
+          CoAlarmFlg = 1
+        }
+        console.log('CoLast10=',CoLast10)
+        console.log('upTrendCount=',upTrendCount)
+        console.log('CoAlarmFlg=',CoAlarmFlg)
+        return CoAlarmFlg
         } 
 }
 

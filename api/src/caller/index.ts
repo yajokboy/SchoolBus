@@ -156,6 +156,8 @@ router.get('/setCO', async function (ctx: CustomContext) {
   const { value } = ctx.request.query
   try {
     ctx.body = await ctx.db.sensorInfo.setCOSensorValue(Number(value)) 
+    const coAlarmFlg = await ctx.db.sensorInfo.CoSensorCheck()
+    ctx.body = await ctx.db.sensorInfo.setSensorValue('CO',coAlarmFlg) 
     ctx.status = HttpStatusCode.OK
     return 
   } catch (e) {
@@ -197,6 +199,9 @@ router.get('/setSensorValue', async function (ctx: CustomContext) {
       } 
   
   ctx.body = await ctx.db.sensorInfo.setCOSensorValue(Number(CO)) 
+  const coAlarmFlg = await ctx.db.sensorInfo.CoSensorCheck()
+  ctx.body = await ctx.db.sensorInfo.setSensorValue('CO',coAlarmFlg) 
+
   ctx.status = HttpStatusCode.OK
 
   return
