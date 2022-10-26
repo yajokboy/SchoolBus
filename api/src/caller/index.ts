@@ -169,6 +169,30 @@ router.get('/setCO', async function (ctx: CustomContext) {
 })
 
 
+router.get('/setIGStatus', async function (ctx: CustomContext) {
+  const { value } = ctx.request.query
+  if ( value === '0' ||  value === '1') 
+  {
+    ctx.body = await ctx.db.sensorInfo.setSensorValue('IG_Status',Number(value)) 
+    ctx.status = HttpStatusCode.OK
+    return
+   }
+    else ctx.status = HttpStatusCode.BAD_REQUEST
+  
+  
+})
+
+router.get('/getIGStatus', async function (ctx: CustomContext)  {
+  try {
+    ctx.body = await ctx.db.sensorInfo.getSensorValue('IG_Status')
+    ctx.status =  HttpStatusCode.OK
+  } catch (e) {
+    ctx.body = { error: e.message }
+    ctx.status = HttpStatusCode.BAD_REQUEST
+  }
+  
+})
+
 router.get('/setSensorValue', async function (ctx: CustomContext) {
   const { Movement1, Movement2, Movement3, CO } = ctx.request.query
   try {

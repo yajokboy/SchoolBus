@@ -78,6 +78,14 @@ functions:
           cors: true
       - http:
           method: GET
+          path: /getIGStatus
+          cors: true
+      - http:
+          method: GET
+          path: /setIGStatus
+          cors: true
+      - http:
+          method: GET
           path: /getlastCO
           cors: true
       - http:
@@ -96,4 +104,6 @@ functions:
           method: GET
           path: /getCoAlarm
           cors: true
+
+
 
