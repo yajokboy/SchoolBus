@@ -18,7 +18,7 @@ export class SensorInfo {
             return  hash[0].value
         }    
       async getCOSensorValueSeries(period: string):Promise<number> {
-          const { rows: hash } = await this.client.query( `SELECT to_char(date,'yyyy-MM-dd HH24:mm:ss') As datetime, value FROM coinfo WHERE date >= now() - interval '${period}' order by date asc`)
+          const { rows: hash } = await this.client.query( `SELECT to_char(date,'yyyy-MM-dd HH24:mi:ss') As datetime, value FROM coinfo WHERE date >= now() - interval '${period}' order by date asc`)
           //SELECT '2022-04-09 10:36:19'::timestamp AT TIME ZONE 'America/Los_Angeles';
           return  hash
           }  
