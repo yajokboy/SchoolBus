@@ -78,6 +78,10 @@ functions:
           cors: true
       - http:
           method: GET
+          path: /setCoAlarm
+          cors: true
+      - http:
+          method: GET
           path: /getIGStatus
           cors: true
       - http:

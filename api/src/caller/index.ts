@@ -129,6 +129,14 @@ router.get('/setMovementAlarm3', async function (ctx: CustomContext) {
     else ctx.status = HttpStatusCode.BAD_REQUEST
 })
 
+router.get('/setCoAlarm', async function (ctx: CustomContext) {
+  const { value } = ctx.request.query
+  if  ( value === '0' ||  value === '1') {
+    ctx.body = await ctx.db.sensorInfo.setSensorValue('CO',Number(value)) 
+    ctx.status = HttpStatusCode.OK
+    return }
+    else ctx.status = HttpStatusCode.BAD_REQUEST
+})
 router.get('/getlastCO', async function (ctx: CustomContext)  {
   try {
     ctx.body = await ctx.db.sensorInfo.getCOSensorValue()
