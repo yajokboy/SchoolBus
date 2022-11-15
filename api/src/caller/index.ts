@@ -17,7 +17,7 @@ const router = new Router()
 router.get('/test', async function (ctx: CustomContext) {
   console.log("Hello test")
   //ctx.body = "Hello School Bus"
-  ctx.body = await ctx.db.sensorInfo.getCOSensorlast5value()
+  ctx.body = await ctx.db.sensorInfo.getCOSensorValue()
   ctx.status = HttpStatusCode.OK
 })
 router.get('/sendSMS', async function (ctx: CustomContext) {
@@ -151,7 +151,8 @@ router.get('/getlastCO', async function (ctx: CustomContext)  {
 router.get('/getCO', async function (ctx: CustomContext)  {
   try {
     
-    ctx.body = await ctx.db.sensorInfo.getCOSensorValueSeries('24 HOURS')
+    //ctx.body = await ctx.db.sensorInfo.getCOSensorValueSeries('24 HOURS')
+    ctx.body = await ctx.db.sensorInfo.getCOSensorValueSeries('5 MINUTES')
     ctx.status =  HttpStatusCode.OK
   } catch (e) {
     ctx.body = { error: e.message }
