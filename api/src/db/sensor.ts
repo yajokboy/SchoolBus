@@ -36,8 +36,8 @@ export class SensorInfo {
         
         let CoAlarmFlg = 0
         const nowTime = new Date().getTime()//.toJSON();
-        const startTime5Min = new Date(nowTime - 5*60*1000);
-        const startTime2Min = new Date(nowTime - 2*60*1000);
+        const startTime5Min = new Date(nowTime + (7*60*60*1000)- (5*60*1000));
+        const startTime2Min = new Date(nowTime + (7*60*60*1000)- (2*60*1000));
         /////////// Calculation case 5 min //////////////
         console.log('startTime5Min:'+startTime5Min)
         const { rows: hash5min } = await this.client.query( `SELECT date, value FROM coinfo WHERE date >= now() + interval '7 hour' - interval '5 MINUTES' - interval '10 SECONDS'  order by date desc`)
