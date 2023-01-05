@@ -8,7 +8,7 @@ async function connectDB() {
 
   const client = new Client({
     user: 'root',
-    host: 'school-bus-database.cbftehx71xxg.ap-southeast-1.rds.amazonaws.com',
+    host: 'school-bus-free-database.cbftehx71xxg.ap-southeast-1.rds.amazonaws.com',
     database: 'sensorDB',
     password: 'password',
     port: 5432,
